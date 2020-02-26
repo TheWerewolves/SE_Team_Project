@@ -1,12 +1,42 @@
 package staff;
 
-public abstract class Staff {
-	
-	protected String name;
-	protected int ID;
 
-	public Staff(String name, int ID) {
+import java.util.ArrayList;
+
+import model.Database;
+import model.Request;
+
+
+public class Staff {
+	
+	protected int id;
+	protected String name;
+	protected String password;
+
+	
+	public Staff(int id, String name, String password) {
+		this.id = id;
 		this.name = name;
-		this.ID = ID;
+		this.password = password;
+	}
+	
+	
+	public ArrayList<Request> getRequest() {
+		Database db = Database.getInstance();
+		return db.getRequestList();
+	}
+	
+	// Getters
+	public int getID() {
+		return id;
+	}
+	public String getName() {
+		return name;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
 	}
 }

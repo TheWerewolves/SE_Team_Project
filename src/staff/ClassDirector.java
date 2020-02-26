@@ -1,20 +1,26 @@
 package staff;
 
-import model.Request;
+
+import model.Database;
+
 
 public class ClassDirector extends Staff {
+	
+	public ClassDirector(int id, String name, String password) {
+		super(id, name, password);
+	}
+	
+	
+	public void addRequest(String name, String description) {
+		Database database = Database.getInstance();
+		database.addRequest(name, description);
+	}
+	
+	public void deleteRequest(int... requestIndex) {
+		Database database = Database.getInstance();
+		for(int i = 0; i < requestIndex.length; i++) {
+			database.deleteRequest(i);
+		}
+	}
 
-	private int priority = 1;
-	
-	public ClassDirector(String name, int ID) {
-		super(name, ID);
-	}
-	
-	public Request addRequest() {
-		
-	}
-	
-	public void deleteRequest(int requestIndex) {
-		
-	}
 }

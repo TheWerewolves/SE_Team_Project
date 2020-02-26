@@ -1,11 +1,18 @@
 package staff;
 
+
+import model.Database;
+
+
 public class PTTDirector extends Staff {
 	
-	private int priority = 3;
-	
-	public PTTDirector(String name, int ID) {
-		super(name, ID);
+	public PTTDirector(int id, String name, String password) {
+		super(id, name, password);
 	}
 	
+	public void approved(int requestIndex) {
+		Database database = Database.getInstance();
+		database.getRequest(requestIndex).approve();
+	}
+
 }
