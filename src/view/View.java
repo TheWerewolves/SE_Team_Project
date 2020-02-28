@@ -1,7 +1,8 @@
 package view;
 
+
 import javax.swing.JFrame;
-import javax.swing.JPanel;
+
 
 public class View{
 	
@@ -9,7 +10,7 @@ public class View{
 		public View() {
 			
 			try {
-				Login_Frame loginFrame = new Login_Frame();
+				LoginFrame loginFrame = new LoginFrame();
 				loginFrame.setVisible(true);
 				loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			} catch (Exception e) {

@@ -1,5 +1,6 @@
 package view;
 
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -9,11 +10,15 @@ import javax.swing.border.MatteBorder;
 import java.awt.Color;
 import javax.swing.JButton;
 
-public class Menu_Frame extends JFrame {
+
+@SuppressWarnings("serial")
+public class MenuFrame extends JFrame {
 
 	private JPanel contentPanel;
 
-	public Menu_Frame() {
+	
+	public MenuFrame() {
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 400);
 		contentPanel = new JPanel();

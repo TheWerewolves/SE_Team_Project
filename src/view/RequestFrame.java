@@ -1,5 +1,6 @@
 package view;
 
+
 import javax.swing.AbstractListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -13,12 +14,14 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
 import java.awt.SystemColor;
 
-public class Request_Frame extends JFrame {
+
+@SuppressWarnings("serial")
+public class RequestFrame extends JFrame {
 
 	private JPanel contentPanel;
 
 
-	public Request_Frame() {
+	public RequestFrame() {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600,400);
