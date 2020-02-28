@@ -1,4 +1,4 @@
-package staff;
+package model.staff;
 
 
 import java.util.ArrayList;

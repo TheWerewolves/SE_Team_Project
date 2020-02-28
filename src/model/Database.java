@@ -2,7 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
-import staff.Staff;
+import model.staff.Staff;
 
 public class Database {
 	
