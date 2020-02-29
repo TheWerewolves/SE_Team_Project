@@ -4,10 +4,10 @@ package model;
 import model.staff.Staff;
 
 
-@SuppressWarnings("unused")
 public class Model {
 	
 	private Staff currentUser;
+	private Database db = Database.getInstance();
 	
 	
 	public Model() {
@@ -16,7 +16,7 @@ public class Model {
 	
 	
 	public boolean Login(int id, String password) {
-		Database db = Database.getInstance();
+		
 		Staff staff = db.findUser(id, password);
 		if(staff != null) {
 			currentUser = staff;
@@ -27,5 +27,10 @@ public class Model {
 	
 	public void Logout() {
 		currentUser = null;
+	}
+
+
+	public Staff getCurrentUser() {
+		return currentUser;
 	}
 }
