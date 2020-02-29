@@ -15,12 +15,20 @@ import javax.swing.JButton;
 public class MenuFrame extends JFrame {
 
 	private JPanel contentPanel;
+	JButton logoutButton;
+	JButton requestButton;
+	JLabel helloLabel;
+	JLabel userInfoLabel;
+	JLabel permLvlLabel;
 
 	
-	public MenuFrame() {
+	public MenuFrame(Controller c) {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 600, 400);
+		setSize(600, 400);
+		setLocationRelativeTo(null);
+		setTitle("Main Menu");
+		
 		contentPanel = new JPanel();
 		setContentPane(contentPanel);
 		contentPanel.setLayout(null);
@@ -33,24 +41,44 @@ public class MenuFrame extends JFrame {
 		contentPanel.add(panel);
 		panel.setLayout(new GridLayout(0, 1, 0, 2));
 		
-		JLabel helloLabel = new JLabel("Hi! Welcome to PTT System Interface!");
+		helloLabel = new JLabel("Hi! Welcome to PTT System Interface!");
 		helloLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		panel.add(helloLabel);
 		
-		JLabel userInfoLabel = new JLabel("User Staff ID is: 12345");
+		userInfoLabel = new JLabel("User Staff ID: ");
 		userInfoLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		panel.add(userInfoLabel);
 		
-		JLabel permLvlLabel = new JLabel("User Permission level is: Teacher");
+		permLvlLabel = new JLabel("User Permission level: ");
 		permLvlLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		panel.add(permLvlLabel);
 		
-		JButton logoutButton = new JButton("Log out");
+		logoutButton = new JButton("Log out");
 		logoutButton.setBounds(73, 269, 123, 29);
+		logoutButton.addActionListener(c);
 		contentPanel.add(logoutButton);
 		
-		JButton requestButton = new JButton("Requests");
+		requestButton = new JButton("Requests");
 		requestButton.setBounds(389, 269, 123, 29);
+		requestButton.addActionListener(c);
 		contentPanel.add(requestButton);
+	}
+
+
+	public JButton getLogoutButton() {
+		return logoutButton;
+	}
+	public JButton getRequestButton() {
+		return requestButton;
+	}
+	
+	public void setUserName(String name) {
+		helloLabel.setText("Hi " + name + "! Welcome to PTT System Interface!");
+	}
+	public void setUserID(int userID) {
+		userInfoLabel.setText("User Staff ID: " + userID);
+	}
+	public void setPermLvl(String permLvl) {
+		permLvlLabel.setText("User Permission level: " + permLvl);
 	}
 }

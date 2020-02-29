@@ -19,30 +19,31 @@ import java.awt.SystemColor;
 public class RequestFrame extends JFrame {
 
 	private JPanel contentPanel;
+	JPanel buttonPanel;
+	JTextArea descripTextArea;
+	JList<String> requestNameList;
+	JButton classDetailButton;
+	JButton teacherDetailButton;
+	
 
-
-	public RequestFrame() {
+	public RequestFrame(Controller c) {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 600,400);
+		setSize(600, 400);
+		setLocationRelativeTo(null);
+		setTitle("Requests");
+		
 		contentPanel = new JPanel();
-//		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPanel);
 		contentPanel.setLayout(null);
 		
-		JPanel ButtonPanel = new JPanel(); 
-		ButtonPanel.setBounds(228, 194, 350, 150);
-		contentPanel.add(ButtonPanel);
-		ButtonPanel.setLayout(null);
-		
-		
 		//Add a JList with a scrollBar
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(15, 41, 198, 288);
-		contentPanel.add(scrollPane);
-		JList<String> requestNameList = new JList<String>();
+		JScrollPane requestScrollPane = new JScrollPane();
+		requestScrollPane.setBounds(15, 41, 198, 288);
+		contentPanel.add(requestScrollPane);
+		requestNameList = new JList<String>();
 		requestNameList.setModel(new AbstractListModel<String>() {
-			String[] requestNameList = new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "1", "2", "3", "4", "5", "6", "7"};
+			String[] requestNameList = new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
 			public int getSize() {
 				return requestNameList.length;
 			}
@@ -50,48 +51,60 @@ public class RequestFrame extends JFrame {
 				return requestNameList[index];
 			}
 		});
-		scrollPane.setViewportView(requestNameList);
-		
+		requestScrollPane.setViewportView(requestNameList);
 		
 		JLabel requestListLabel = new JLabel("Request List");
 		requestListLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		requestListLabel.setBounds(15, 15, 198, 21);
 		contentPanel.add(requestListLabel);
+		JLabel classIdLabel = new JLabel("Class ID:");
+		classIdLabel.setBounds(228, 29, 81, 21);
+		contentPanel.add(classIdLabel);
+		JLabel teacherNameLabel = new JLabel("Teacher Name:");
+		teacherNameLabel.setBounds(228, 58, 123, 21);
+		contentPanel.add(teacherNameLabel);
+		JLabel descripLabel = new JLabel("Request Description:");
+		descripLabel.setBounds(228, 87, 198, 21);
+		contentPanel.add(descripLabel);
 		
 		//Add two button for class and teacher info for the request
-		JButton classDetailButton = new JButton("Detail");
-		classDetailButton.setBounds(458, 25, 87, 29);
+		classDetailButton = new JButton("Detail");
+		classDetailButton.setBounds(458, 25, 80, 24);
 		contentPanel.add(classDetailButton);
-		
-		JButton teacherDetailButton = new JButton("Detail");
+		teacherDetailButton = new JButton("Detail");
 		teacherDetailButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		teacherDetailButton.setBounds(458, 61, 87, 29);
+		teacherDetailButton.setBounds(458, 55, 80, 24);
 		contentPanel.add(teacherDetailButton);
 		
-		JLabel classIdLabel = new JLabel("Class ID:");
-		classIdLabel.setBounds(236, 29, 81, 21);
-		contentPanel.add(classIdLabel);
+		JScrollPane descScrollPane = new JScrollPane();
+		descScrollPane.setBounds(228, 110, 335, 80);
+		contentPanel.add(descScrollPane);
 		
-		JLabel teacherNameLabel = new JLabel("Teacher Name:");
-		teacherNameLabel.setBounds(231, 65, 123, 21);
-		contentPanel.add(teacherNameLabel);
-		
-		
-		//Description Label follows a description text area with a scroll bar.
-		JLabel descripLabel = new JLabel("Request Description:");
-		descripLabel.setBounds(228, 101, 198, 21);
-		contentPanel.add(descripLabel);
-		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(228, 126, 335, 54);
-		contentPanel.add(scrollPane_1);
-		JTextArea descripTextArea = new JTextArea();
+		descripTextArea = new JTextArea();
 		descripTextArea.setBackground(SystemColor.menu);
 		descripTextArea.setText("This is the description part of our request, please be careful about this part.");
 		descripTextArea.setLineWrap(true);
 		descripTextArea.setWrapStyleWord(true);
-		scrollPane_1.setColumnHeaderView(descripTextArea);
+		descScrollPane.setViewportView(descripTextArea);
+		
+		buttonPanel = new JPanel(); 
+		buttonPanel.setBounds(228, 194, 350, 150);
+		buttonPanel.setLayout(null);
+		contentPanel.add(buttonPanel);
 	}
+
+
+	public JPanel getButtonPanel() {
+		return buttonPanel;
+	}
+	public JButton getClassDetailButton() {
+		return classDetailButton;
+	}
+	public JButton getTeacherDetailButton() {
+		return teacherDetailButton;
+	}
+	
 }
