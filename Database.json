@@ -1,0 +1,30 @@
+{
+    "Staffs": {
+        "Administrator": [
+            {"id":0,"name":"Yuuto","password":"0"},
+            {"id":20020001,"name":"Steve","password":"password"}
+        ],
+
+        "ClassDirector": [
+            {"id":20020002,"name":"Tom","password":"password"}
+        ],
+
+        "PTTDirector": [
+            {"id":20020003,"name":"Robin","password":"password"}
+        ],
+
+        "Teacher": [
+            {"id":20020004,"name":"Jim","password":"password"},
+            {"id":20020005,"name":"Peter","password":"password"},
+            {"id":20020006,"name":"Kelly","password":"password"},
+            {"id":20020007,"name":"Hill","password":"password"},
+            {"id":20020008,"name":"Catherine","password":"password"},
+            {"id":20020009,"name":"Frank","password":"password"},
+            {"id":20020010,"name":"Louis","password":"password"}
+        ]
+    },
+
+    "Requests": [
+        
+    ]
+}
