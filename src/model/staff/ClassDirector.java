@@ -6,6 +6,7 @@ import model.Database;
 
 public class ClassDirector extends Staff {
 	
+	public ClassDirector() { super(); }
 	public ClassDirector(int id, String name, String password) {
 		super(id, name, password);
 	}

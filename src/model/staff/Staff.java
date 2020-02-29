@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import model.Database;
 import model.Request;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 public class Staff {
 	
@@ -14,6 +16,11 @@ public class Staff {
 	protected String password;
 
 	
+	public Staff() {
+		id = -1;
+		name = "";
+		password = "";
+	}
 	public Staff(int id, String name, String password) {
 		this.id = id;
 		this.name = name;
@@ -21,7 +28,8 @@ public class Staff {
 	}
 	
 	
-	public ArrayList<Request> getRequest() {
+	@JsonIgnore
+	protected ArrayList<Request> getRequest() {
 		Database db = Database.getInstance();
 		return db.getRequestList();
 	}
@@ -38,5 +46,9 @@ public class Staff {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public String getPermLvl() {
+		return this.getClass().getSimpleName();
 	}
 }

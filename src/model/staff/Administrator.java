@@ -10,6 +10,7 @@ import model.Request;
 
 public class Administrator extends Staff {
 	
+	public Administrator() { super(); }
 	public Administrator(int id, String name, String password) {
 		super(id, name, password);
 	}

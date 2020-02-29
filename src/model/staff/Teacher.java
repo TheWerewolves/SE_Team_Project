@@ -7,6 +7,7 @@ import model.Request;
 
 public class Teacher extends Staff {
 	
+	public Teacher() { super(); }
 	public Teacher(int id, String name, String password) {
 		super(id, name, password);
 	}
