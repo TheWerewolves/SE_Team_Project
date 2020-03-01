@@ -1,8 +1,6 @@
 package view;
 
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -11,9 +9,8 @@ import javax.swing.JButton;
 
 
 @SuppressWarnings("serial")
-public class LoginFrame extends JFrame {
+public class LoginFrame extends BaseFrame {
 
-	private JPanel contentPane;
 	private JTextField idTextField;
 	private JPasswordField pwTextField;
 	private JButton exitButton;
@@ -22,14 +19,7 @@ public class LoginFrame extends JFrame {
 
 	public LoginFrame(Controller c) {
 		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(600, 400);
-		setLocationRelativeTo(null);
 		setTitle("Login");
-		
-		contentPane = new JPanel();
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
 		
 		JLabel idInputField = new JLabel("Staff ID:");
 		idInputField.setFont(new Font("Arial", Font.PLAIN, 20));
@@ -60,8 +50,8 @@ public class LoginFrame extends JFrame {
 		loginButton.setBounds(399, 270, 123, 29);
 		loginButton.addActionListener(c);
 		contentPane.add(loginButton);
-		
-		setResizable(false);
+
+		this.getRootPane().setDefaultButton(loginButton);
 	}
 	
 	
