@@ -10,6 +10,7 @@ import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import model.Database;
 import model.Date;
 import model.Model;
 import model.PTTClass;
@@ -41,6 +42,7 @@ public class Controller implements ActionListener, ListSelectionListener {
 		
 		if(e.getSource() == view.getLF().getExitButton()) {
 			
+			Database.getInstance().save();
 			System.exit(0);
 			
 		} else if(e.getSource() == view.getLF().getLoginButton()) {
