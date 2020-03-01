@@ -18,9 +18,20 @@ public class Date {
 		this.month = month;
 		this.year = year;
 	}
+	
+	
+	public static Date parseDate(String s) throws Exception {
+		String[] splits = s.split("/");
+		Date d = new Date();
+		
+		d.setDay(Integer.parseInt(splits[0]));
+		d.setMonth(Integer.parseInt(splits[1]));
+		d.setYear(Integer.parseInt(splits[2]));
+		
+		return d;
+	}
 
-
-	// Getters
+	// Getters and Setters
 	public int getDay() {
 		return day;
 	}
@@ -29,6 +40,15 @@ public class Date {
 	}
 	public int getYear() {
 		return year;
+	}
+	public void setDay(int day) {
+		this.day = day;
+	}
+	public void setMonth(int month) {
+		this.month = month;
+	}
+	public void setYear(int year) {
+		this.year = year;
 	}
 	
 	@Override
