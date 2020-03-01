@@ -22,7 +22,7 @@ public class RequestFrame extends BaseFrame {
 	
 	private DefaultListModel<String> requestList;
 
-	private JPanel buttonPanel;
+	private BaseButtonPanel buttonPanel;
 	private JTextArea descripTextArea;
 	private JList<String> requestNameList;
 	private JButton classDetailButton;
@@ -82,18 +82,17 @@ public class RequestFrame extends BaseFrame {
 		descripTextArea.setWrapStyleWord(true);
 		descScrollPane.setViewportView(descripTextArea);
 		
-		buttonPanel = new JPanel(); 
-		buttonPanel.setLocation(228, 194);
-		contentPane.add(buttonPanel);
-		
 		menuButton = new JButton("Return to Menu");
 		menuButton.setBounds(300, 286, 186, 29);
 		menuButton.addActionListener(c);
-		add(menuButton);
+		contentPane.add(menuButton);
+		
+		buttonPanel = new TeacherButtonPanel();
+		contentPane.add(buttonPanel);
 	}
 
 	
-	public void setClassID(int id) {
+	public void setClassID(String id) {
 		classIdLabel.setText("Class ID:   " + id);
 	}
 	
@@ -106,9 +105,9 @@ public class RequestFrame extends BaseFrame {
 	}
 	
 	public void setButtonPanel(Controller c, String permLvl) {
-		
+
 		contentPane.remove(buttonPanel);
-		
+
 		if(permLvl.equals("Administrator")) {
 			buttonPanel = new AdminButtonPanel(c);
 			
@@ -119,7 +118,7 @@ public class RequestFrame extends BaseFrame {
 			buttonPanel = new PTTDirectorButtonPanel(c);
 			
 		} else {
-			buttonPanel = new JPanel();
+			buttonPanel = new TeacherButtonPanel();
 		}
 		
 		buttonPanel.setLocation(228, 194);
@@ -137,7 +136,7 @@ public class RequestFrame extends BaseFrame {
 	public JButton getMenuButton() {
 		return menuButton;
 	}
-	public JPanel getButtonPanel() {
+	public BaseButtonPanel getButtonPanel() {
 		return buttonPanel;
 	}
 	public DefaultListModel<String> getRequestList() {

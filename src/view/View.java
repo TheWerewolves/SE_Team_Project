@@ -19,8 +19,7 @@ public class View{
 			rf = new RequestFrame(controller);
 			
 			lf.setVisible(true);
-//			rf.setVisible(true);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

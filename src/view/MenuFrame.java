@@ -54,6 +54,8 @@ public class MenuFrame extends BaseFrame {
 		requestButton.setBounds(389, 269, 123, 29);
 		requestButton.addActionListener(c);
 		contentPane.add(requestButton);
+		
+		this.getRootPane().setDefaultButton(requestButton);
 	}
 
 
