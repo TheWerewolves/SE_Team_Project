@@ -9,10 +9,8 @@ import java.awt.Color;
 @SuppressWarnings("serial")
 public class ClassDirectorButtonPanel extends JPanel {
 
-	JButton addReqButton;
-	JButton deleteReqButton;
-	JButton menuButton;
-	JButton sendButton;
+	private JButton addReqButton;
+	private JButton deleteReqButton;
 
 	
 	public ClassDirectorButtonPanel(Controller c) {
@@ -30,15 +28,6 @@ public class ClassDirectorButtonPanel extends JPanel {
 		deleteReqButton.addActionListener(c);
 		add(deleteReqButton);
 		
-		menuButton = new JButton("Menu");
-		menuButton.setBounds(28, 72, 123, 29);
-		menuButton.addActionListener(c);
-		add(menuButton);
-		
-		sendButton = new JButton("Send");
-		sendButton.setBounds(175, 72, 123, 29);
-		sendButton.addActionListener(c);
-		add(sendButton);
 	}
 
 
@@ -47,12 +36,6 @@ public class ClassDirectorButtonPanel extends JPanel {
 	}
 	public JButton getDeleteReqButton() {
 		return deleteReqButton;
-	}
-	public JButton getMenuButton() {
-		return menuButton;
-	}
-	public JButton getSendButton() {
-		return sendButton;
 	}
 
 }
