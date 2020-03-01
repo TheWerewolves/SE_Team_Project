@@ -1,7 +1,10 @@
 package model;
 
 
+import java.util.ArrayList;
+
 import model.staff.Staff;
+import model.staff.Teacher;
 
 
 public class Model {
@@ -45,4 +48,16 @@ public class Model {
 		}
 		return "";
 	}
+	
+	public ArrayList<Integer> getTeacherIDList() {
+		ArrayList<Integer> idList = new ArrayList<Integer>();
+		for(Staff s : db.getStaffList()) {
+			if(s instanceof Teacher) {
+				idList.add(s.getID());
+			}
+		}
+		return idList;
+	}
+	
+	
 }
