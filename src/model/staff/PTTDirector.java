@@ -11,9 +11,9 @@ public class PTTDirector extends Staff {
 		super(id, name, password);
 	}
 	
-	public void approved(int requestIndex) {
+	public void approved(int requestIndex, boolean approved) {
 		Database database = Database.getInstance();
-		database.getRequest(requestIndex).approve();
+		database.getRequest(requestIndex).setApproved(approved);
 	}
 
 }

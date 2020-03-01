@@ -33,11 +33,7 @@ public class Request {
 		this.approved = approved;
 	}
 	
-	
-	public void approve() {
-		this.approved = true;
-	}
-	
+
 	// Getters and Setters
 	public String getName() {
 		return name;
@@ -62,6 +58,9 @@ public class Request {
 	}
 	public boolean getApproved() {
 		return approved;
+	}
+	public void setApproved(boolean approved) {
+		this.approved = approved;
 	}
 	
 }

@@ -45,12 +45,14 @@ public class PTTClass {
 		this.time = time;
 	}
 	public String getLocation() {
+		if(location.length() == 0) return "unorganized";
 		return location;
 	}
 	public void setLocation(String location) {
 		this.location = location;
 	}
 	public String getSemester() {
+		if(semester.length() == 0) return "unorganized";
 		return semester;
 	}
 	public void setSemester(String semester) {
