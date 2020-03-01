@@ -1,28 +1,26 @@
 package model;
 
 
-import java.util.Date;
-
-
-@SuppressWarnings("unused")
 public class PTTClass {
 	
-	private int ID;
+	private static int numClasses = 0;
+	private int id;
 	private int size;
 	private Date time;
 	private String location;
 	private String semester;
+
 	
-	
-	public PTTClass(int ID) {
-		this.ID = ID;
+	public PTTClass() {
+		this.id = numClasses;
+		numClasses++;
 		this.size = 0;
-		this.time = new Date();
+		this.time = null;
 		this.location = "";
 		this.semester = "";
 	}
-	public PTTClass(int ID, int size, Date time, String location, String semester) {
-		this.ID = ID;
+	public PTTClass(int size, Date time, String location, String semester) {
+		this();
 		this.size = size;
 		this.time = time;
 		this.location = location;
@@ -31,6 +29,9 @@ public class PTTClass {
 
 
 	// Getters and Setters
+	public int getID() {
+		return id;
+	}
 	public int getSize() {
 		return size;
 	}
