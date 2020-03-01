@@ -1,22 +1,17 @@
 package view;
 
 
-import javax.swing.JPanel;
 import javax.swing.JButton;
-import java.awt.Color;
 
 
 @SuppressWarnings("serial")
-public class ClassDirectorButtonPanel extends JPanel {
+public class ClassDirectorButtonPanel extends BaseButtonPanel {
 
 	private JButton addReqButton;
 	private JButton deleteReqButton;
 
 	
 	public ClassDirectorButtonPanel(Controller c) {
-		setSize(330,130);
-		setForeground(Color.GRAY);
-		setLayout(null);
 		
 		addReqButton = new JButton("Add Req");
 		addReqButton.setBounds(28, 28, 123, 29);
@@ -28,6 +23,7 @@ public class ClassDirectorButtonPanel extends JPanel {
 		deleteReqButton.addActionListener(c);
 		add(deleteReqButton);
 		
+		deleteReqButton.setEnabled(false);
 	}
 
 
@@ -36,6 +32,12 @@ public class ClassDirectorButtonPanel extends JPanel {
 	}
 	public JButton getDeleteReqButton() {
 		return deleteReqButton;
+	}
+
+	@Override
+	public void setButtonsEnabled(boolean enabled) {
+		addReqButton.setEnabled(enabled);
+		deleteReqButton.setEnabled(enabled);
 	}
 
 }

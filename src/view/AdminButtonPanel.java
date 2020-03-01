@@ -1,25 +1,18 @@
 package view;
 
 
-import java.awt.Color;
-
 import javax.swing.JButton;
-import javax.swing.JPanel;
 
 
 @SuppressWarnings("serial")
-public class AdminButtonPanel extends JPanel {
+public class AdminButtonPanel extends BaseButtonPanel {
 
 	private JButton orgTeacherButton;
 	private JButton orgClassButton;
 	
 	
 	public AdminButtonPanel(Controller c) {
-		
-		setSize(330, 130);
-		setForeground(Color.GRAY);
-		setLayout(null);
-		
+
 		orgTeacherButton = new JButton("Orgnize Teacher");
 		orgTeacherButton.setBounds(72, 28, 186, 29);
 		orgTeacherButton.addActionListener(c);
@@ -30,6 +23,7 @@ public class AdminButtonPanel extends JPanel {
 		orgClassButton.addActionListener(c);
 		add(orgClassButton);
 
+		setButtonsEnabled(false);
 	}
 
 
@@ -38,6 +32,12 @@ public class AdminButtonPanel extends JPanel {
 	}
 	public JButton getOrgClassButton() {
 		return orgClassButton;
+	}
+
+	@Override
+	public void setButtonsEnabled(boolean enabled) {
+		orgTeacherButton.setEnabled(enabled);
+		orgClassButton.setEnabled(enabled);
 	}
 
 }
