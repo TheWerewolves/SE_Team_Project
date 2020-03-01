@@ -29,6 +29,11 @@ public class Staff {
 	
 	
 	@JsonIgnore
+	public String getPermLvl() {
+		return this.getClass().getSimpleName();
+	}
+	
+	@JsonIgnore
 	public ArrayList<Request> getRequest() {
 		Database db = Database.getInstance();
 		return db.getRequestList();
@@ -46,9 +51,5 @@ public class Staff {
 	}
 	public void setPassword(String password) {
 		this.password = password;
-	}
-	
-	public String getPermLvl() {
-		return this.getClass().getSimpleName();
 	}
 }
