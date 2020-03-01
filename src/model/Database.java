@@ -53,6 +53,10 @@ public class Database {
 			staffList.addAll(Arrays.asList(classDirectors));
 			staffList.addAll(Arrays.asList(pttDirectors));
 			staffList.addAll(Arrays.asList(teachers));
+			
+			Request[] requests = mapper.treeToValue(jn.get("Requests"), Request[].class);
+			
+			requestList.addAll(Arrays.asList(requests));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -61,20 +65,22 @@ public class Database {
 	
 	public void save() {
 		
-		Staff staff = new Staff(1, "tom", "1234");
+		PTTClass c = new PTTClass(10, new Date(3, 3, 2020), "Glasgow", "2020");
+		Request request = new Request("English", "Need a English teacher", c, 0, true);
+		
 		ObjectMapper mapper = new ObjectMapper();
 		
 		 try {
             // Java objects to JSON file
-            mapper.writeValue(new File("./staff.json"), staff);
+            mapper.writeValue(new File("./staff.json"), request);
 
             // Java objects to JSON string - compact-print
-            String jsonString = mapper.writeValueAsString(staff);
+            String jsonString = mapper.writeValueAsString(request);
 
             System.out.println(jsonString);
 
             // Java objects to JSON string - pretty-print
-            String jsonInString2 = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(staff);
+            String jsonInString2 = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(request);
 
             System.out.println(jsonInString2);
 

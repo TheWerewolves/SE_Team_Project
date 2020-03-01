@@ -1,110 +1,150 @@
 package view;
 
 
-import javax.swing.AbstractListModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
+import javax.swing.ListSelectionModel;
+
 import java.awt.SystemColor;
 
 
-@SuppressWarnings("serial")
-public class RequestFrame extends JFrame {
-
-	private JPanel contentPanel;
-	JPanel buttonPanel;
-	JTextArea descripTextArea;
-	JList<String> requestNameList;
-	JButton classDetailButton;
-	JButton teacherDetailButton;
+@SuppressWarnings({"serial", "unused"})
+public class RequestFrame extends BaseFrame {
 	
+	private DefaultListModel<String> requestList;
 
+	private JPanel buttonPanel;
+	private JTextArea descripTextArea;
+	private JList<String> requestNameList;
+	private JButton classDetailButton;
+	private JButton teacherDetailButton;
+	private JLabel classIdLabel;
+	private JLabel teacherNameLabel;
+	private JButton menuButton;
+
+	
 	public RequestFrame(Controller c) {
 
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(600, 400);
-		setLocationRelativeTo(null);
 		setTitle("Requests");
-		
-		contentPanel = new JPanel();
-		setContentPane(contentPanel);
-		contentPanel.setLayout(null);
 		
 		//Add a JList with a scrollBar
 		JScrollPane requestScrollPane = new JScrollPane();
 		requestScrollPane.setBounds(15, 41, 198, 288);
-		contentPanel.add(requestScrollPane);
-		requestNameList = new JList<String>();
-		requestNameList.setModel(new AbstractListModel<String>() {
-			String[] requestNameList = new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
-			public int getSize() {
-				return requestNameList.length;
-			}
-			public String getElementAt(int index) {
-				return requestNameList[index];
-			}
-		});
+		contentPane.add(requestScrollPane);
+		
+		requestList = new DefaultListModel<String>();
+		requestNameList = new JList<String>(requestList);
+		requestNameList.addListSelectionListener(c);
+		requestNameList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		requestNameList.setDragEnabled(false);
 		requestScrollPane.setViewportView(requestNameList);
 		
 		JLabel requestListLabel = new JLabel("Request List");
 		requestListLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		requestListLabel.setBounds(15, 15, 198, 21);
-		contentPanel.add(requestListLabel);
-		JLabel classIdLabel = new JLabel("Class ID:");
+		contentPane.add(requestListLabel);
+		classIdLabel = new JLabel("Class ID:");
 		classIdLabel.setBounds(228, 29, 81, 21);
-		contentPanel.add(classIdLabel);
-		JLabel teacherNameLabel = new JLabel("Teacher Name:");
+		contentPane.add(classIdLabel);
+		teacherNameLabel = new JLabel("Teacher:");
 		teacherNameLabel.setBounds(228, 58, 123, 21);
-		contentPanel.add(teacherNameLabel);
+		contentPane.add(teacherNameLabel);
 		JLabel descripLabel = new JLabel("Request Description:");
 		descripLabel.setBounds(228, 87, 198, 21);
-		contentPanel.add(descripLabel);
+		contentPane.add(descripLabel);
 		
 		//Add two button for class and teacher info for the request
 		classDetailButton = new JButton("Detail");
 		classDetailButton.setBounds(458, 25, 80, 24);
-		contentPanel.add(classDetailButton);
+		classDetailButton.addActionListener(c);
+		contentPane.add(classDetailButton);
 		teacherDetailButton = new JButton("Detail");
-		teacherDetailButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		teacherDetailButton.setBounds(458, 55, 80, 24);
-		contentPanel.add(teacherDetailButton);
+		teacherDetailButton.addActionListener(c);
+		contentPane.add(teacherDetailButton);
 		
 		JScrollPane descScrollPane = new JScrollPane();
 		descScrollPane.setBounds(228, 110, 335, 80);
-		contentPanel.add(descScrollPane);
+		contentPane.add(descScrollPane);
 		
 		descripTextArea = new JTextArea();
 		descripTextArea.setBackground(SystemColor.menu);
-		descripTextArea.setText("This is the description part of our request, please be careful about this part.");
 		descripTextArea.setLineWrap(true);
 		descripTextArea.setWrapStyleWord(true);
 		descScrollPane.setViewportView(descripTextArea);
 		
 		buttonPanel = new JPanel(); 
-		buttonPanel.setBounds(228, 194, 350, 150);
-		buttonPanel.setLayout(null);
-		contentPanel.add(buttonPanel);
+		buttonPanel.setLocation(228, 194);
+		contentPane.add(buttonPanel);
+		
+		menuButton = new JButton("Return to Menu");
+		menuButton.setBounds(300, 286, 186, 29);
+		menuButton.addActionListener(c);
+		add(menuButton);
 	}
 
-
-	public JPanel getButtonPanel() {
-		return buttonPanel;
+	
+	public void setClassID(int id) {
+		classIdLabel.setText("Class ID:   " + id);
 	}
+	
+	public void setTeacherName(String name) {
+		teacherNameLabel.setText("Teacher:   " + name);
+	}
+	
+	public void setDescription(String desc) {
+		descripTextArea.setText(desc);
+	}
+	
+	public void setButtonPanel(Controller c, String permLvl) {
+		
+		contentPane.remove(buttonPanel);
+		
+		if(permLvl.equals("Administrator")) {
+			buttonPanel = new AdminButtonPanel(c);
+			
+		} else if(permLvl.equals("ClassDirector")) {
+			buttonPanel = new ClassDirectorButtonPanel(c);
+			
+		} else if(permLvl.equals("PTTDirector")) {
+			buttonPanel = new PTTDirectorButtonPanel(c);
+			
+		} else {
+			buttonPanel = new JPanel();
+		}
+		
+		buttonPanel.setLocation(228, 194);
+		contentPane.add(buttonPanel);
+		contentPane.repaint();
+		
+	}
+	
 	public JButton getClassDetailButton() {
 		return classDetailButton;
 	}
 	public JButton getTeacherDetailButton() {
 		return teacherDetailButton;
 	}
-	
+	public JButton getMenuButton() {
+		return menuButton;
+	}
+	public JPanel getButtonPanel() {
+		return buttonPanel;
+	}
+	public DefaultListModel<String> getRequestList() {
+		return requestList;
+	}
+	public int getSelectedIndex() {
+		return requestNameList.getSelectedIndex();
+	}
+
 }

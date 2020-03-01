@@ -1,20 +1,41 @@
 package view;
 
 
-import javax.swing.JFrame;
+import model.Model;
 
 
 public class View{
 	
-	//The Constructor
-		public View() {
+	private LoginFrame lf;
+	private MenuFrame mf;
+	private RequestFrame rf;
+	
+	
+	public View(Model model, Controller controller) {
+		
+		try {
+			lf = new LoginFrame(controller);
+			mf = new MenuFrame(controller);
+			rf = new RequestFrame(controller);
 			
-			try {
-				LoginFrame loginFrame = new LoginFrame();
-				loginFrame.setVisible(true);
-				loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			lf.setVisible(true);
+//			rf.setVisible(true);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+	}
+
+
+	// Getters
+	public LoginFrame getLF() {
+		return lf;
+	}
+	public RequestFrame getRF() {
+		return rf;
+	}
+	public MenuFrame getMF() {
+		return mf;
+	}
+
 }
