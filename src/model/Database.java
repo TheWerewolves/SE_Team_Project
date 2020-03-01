@@ -8,6 +8,8 @@ import java.util.Arrays;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import model.staff.Administrator;
 import model.staff.ClassDirector;
@@ -22,7 +24,7 @@ public class Database {
 	private ArrayList<Staff> staffList;
 	
 	
-	private ObjectMapper mapper = new ObjectMapper();
+	private ObjectMapper mapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
 	
 	
 	// Create Singleton
@@ -65,29 +67,42 @@ public class Database {
 	
 	public void save() {
 		
-		PTTClass c = new PTTClass(10, new Date(3, 3, 2020), "Glasgow", "2020");
-		Request request = new Request("English", "Need a English teacher", c, 0, true);
+		ArrayList<Staff> administratorList = new ArrayList<Staff>();
+		ArrayList<Staff> classDirectorList = new ArrayList<Staff>();
+		ArrayList<Staff> pttDirectorList = new ArrayList<Staff>();
+		ArrayList<Staff> teacherList = new ArrayList<Staff>();
 		
-		ObjectMapper mapper = new ObjectMapper();
+		for (Staff s : staffList) {
+			if(s instanceof Administrator) {
+				administratorList.add(s);
+				
+			} else if(s instanceof ClassDirector) {
+				classDirectorList.add(s);
+				
+			} else if(s instanceof PTTDirector) {
+				pttDirectorList.add(s);
+				
+			} else if(s instanceof Teacher) {
+				teacherList.add(s);
+			}
+		}
 		
-		 try {
-            // Java objects to JSON file
-            mapper.writeValue(new File("./staff.json"), request);
-
-            // Java objects to JSON string - compact-print
-            String jsonString = mapper.writeValueAsString(request);
-
-            System.out.println(jsonString);
-
-            // Java objects to JSON string - pretty-print
-            String jsonInString2 = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(request);
-
-            System.out.println(jsonInString2);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+		ObjectNode objectNode = mapper.createObjectNode();
+		ObjectNode staffs = mapper.createObjectNode();
 		
+		staffs.putPOJO("Administrator", administratorList);
+		staffs.putPOJO("ClassDirector", classDirectorList);
+		staffs.putPOJO("PTTDirector", pttDirectorList);
+		staffs.putPOJO("Teacher", teacherList);
+		
+		objectNode.putPOJO("Staffs", staffs);
+		objectNode.putPOJO("Requests", requestList);
+
+        try {
+			mapper.writeValue(new File("./Database.json"), objectNode);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public Staff findUser(int id, String password) {
