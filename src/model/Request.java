@@ -4,7 +4,8 @@ package model;
 @SuppressWarnings("unused")
 public class Request {
 	
-	private static int id = 0;
+	private static int numRequests = 0;
+	private int id;
 	private String name;
 	private String description;
 	private PTTClass pttClass;
@@ -12,17 +13,24 @@ public class Request {
 	private boolean approved = false;
 	
 	
-	public Request(String name) {
-		id++;
-		this.name = name;
+	public Request() {
+		this.id = numRequests;
+		numRequests++;
+		name = "";
 		this.description = "";
 		this.pttClass = null;
 	}
-	public Request(String name, String description, PTTClass pttClass, int teacherID) {
-		this(name);
+	public Request(String name) {
+		this();
+		this.name = name;
+	}
+	public Request(String name, String description, PTTClass pttClass, int teacherID, boolean approved) {
+		this();
+		this.name = name;
 		this.description = description;
 		this.pttClass = pttClass;
 		this.teacherID = teacherID;
+		this.approved = approved;
 	}
 	
 	
@@ -31,6 +39,9 @@ public class Request {
 	}
 	
 	// Getters and Setters
+	public String getName() {
+		return name;
+	}
 	public PTTClass getPTTClass() {
 		return pttClass;
 	}

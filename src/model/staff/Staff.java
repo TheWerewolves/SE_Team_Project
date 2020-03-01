@@ -29,7 +29,7 @@ public class Staff {
 	
 	
 	@JsonIgnore
-	protected ArrayList<Request> getRequest() {
+	public ArrayList<Request> getRequest() {
 		Database db = Database.getInstance();
 		return db.getRequestList();
 	}
