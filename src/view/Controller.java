@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
@@ -116,6 +117,7 @@ public class Controller implements ActionListener, ListSelectionListener {
 		} else if(view.getRF().getButtonPanel() instanceof AdminButtonPanel) {
 
 			AdminButtonPanel bp = (AdminButtonPanel) view.getRF().getButtonPanel();
+			
 			if(e.getSource() == bp.getOrgTeacherButton()) {
 				
 				Object[] idList = model.getTeacherIDList().toArray();
@@ -133,6 +135,15 @@ public class Controller implements ActionListener, ListSelectionListener {
 				JTextField classDateField = new JTextField();
 				JTextField locationField = new JTextField();
 				JTextField semesterField = new JTextField();
+				
+				PTTClass currClass = model.getRequest(currReqIndex).getPTTClass();
+				if(currClass != null) {
+					classSizeField.setText("" + currClass.getSize());
+					classDateField.setText("" + currClass.getTime());
+					locationField.setText(currClass.getLocation());
+					semesterField.setText(currClass.getSemester());
+				}
+				
 				Object[] classOrganizer = {
 					"Class Size: ", classSizeField,
 					"Date(xx/xx/xxxx): ", classDateField,
@@ -169,13 +180,18 @@ public class Controller implements ActionListener, ListSelectionListener {
 		} else if(view.getRF().getButtonPanel() instanceof ClassDirectorButtonPanel) {
 
 			ClassDirectorButtonPanel bp = (ClassDirectorButtonPanel) view.getRF().getButtonPanel();
+			
 			if(e.getSource() == bp.getAddReqButton()) {
 				
 				JTextField nameField = new JTextField();
 				JTextArea descriptionArea = new JTextArea(4, 10);
+				descriptionArea.setLineWrap(true);
+				JScrollPane descScrollPane = new JScrollPane();
+				descScrollPane.setViewportView(descriptionArea);
+				
 				Object[] requestAdder = {
 					"Request Name: ", nameField,
-					"Description: ", descriptionArea
+					"Description: ", descScrollPane
 				};
 				int choice = JOptionPane.showConfirmDialog(view.getRF(), 
 						requestAdder,  "Add Request", JOptionPane.OK_CANCEL_OPTION);
@@ -197,7 +213,7 @@ public class Controller implements ActionListener, ListSelectionListener {
 				
 			} else if(e.getSource() == bp.getDeleteReqButton()) {
 
-				int confirmed = JOptionPane.showConfirmDialog(view.getMF(), "Are you sure you want to delete this request?", "Delete Request Options", JOptionPane.YES_NO_CANCEL_OPTION);
+				int confirmed = JOptionPane.showConfirmDialog(view.getRF(), "Are you sure you want to delete this request?", "Delete Request Options", JOptionPane.YES_NO_CANCEL_OPTION);
 				if(confirmed == 0) {
 					((ClassDirector) model.getCurrentUser()).deleteRequest(currReqIndex);;
 					view.getRF().getRequestList().remove(currReqIndex);
@@ -211,6 +227,7 @@ public class Controller implements ActionListener, ListSelectionListener {
 		} else if(view.getRF().getButtonPanel() instanceof PTTDirectorButtonPanel) {
 
 			PTTDirectorButtonPanel bp = (PTTDirectorButtonPanel) view.getRF().getButtonPanel();
+			
 			if(e.getSource() == bp.getSaveButton()) {
 				
 				boolean approved = false;

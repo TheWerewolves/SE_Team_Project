@@ -22,14 +22,17 @@ public class RequestFrame extends BaseFrame {
 	
 	private DefaultListModel<String> requestList;
 
-	private BaseButtonPanel buttonPanel;
-	private JTextArea descripTextArea;
 	private JList<String> requestNameList;
+	private JScrollPane descScrollPane;
+	private BaseButtonPanel buttonPanel;
+	
 	private JButton classDetailButton;
 	private JButton teacherDetailButton;
+	private JButton menuButton;
+	
 	private JLabel classIdLabel;
 	private JLabel teacherNameLabel;
-	private JButton menuButton;
+	private JTextArea descripTextArea;
 
 	
 	public RequestFrame(Controller c) {
@@ -52,11 +55,11 @@ public class RequestFrame extends BaseFrame {
 		requestListLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		requestListLabel.setBounds(15, 15, 198, 21);
 		contentPane.add(requestListLabel);
-		classIdLabel = new JLabel("Class ID:                    ");
-		classIdLabel.setBounds(228, 29, 81, 21);
+		classIdLabel = new JLabel("Class ID: ");
+		classIdLabel.setBounds(228, 29, 150, 21);
 		contentPane.add(classIdLabel);
-		teacherNameLabel = new JLabel("Teacher:                 ");
-		teacherNameLabel.setBounds(228, 58, 123, 21);
+		teacherNameLabel = new JLabel("Teacher: ");
+		teacherNameLabel.setBounds(228, 58, 150, 21);
 		contentPane.add(teacherNameLabel);
 		JLabel descripLabel = new JLabel("Request Description:");
 		descripLabel.setBounds(228, 87, 198, 21);
@@ -75,7 +78,7 @@ public class RequestFrame extends BaseFrame {
 		teacherDetailButton.setEnabled(false);
 		contentPane.add(teacherDetailButton);
 		
-		JScrollPane descScrollPane = new JScrollPane();
+		descScrollPane = new JScrollPane();
 		descScrollPane.setBounds(228, 110, 335, 80);
 		contentPane.add(descScrollPane);
 		
@@ -105,6 +108,7 @@ public class RequestFrame extends BaseFrame {
 	
 	public void setDescription(String desc) {
 		descripTextArea.setText(desc);
+		descripTextArea.setCaretPosition(0);
 	}
 	
 	public void setButtonPanel(Controller c, String permLvl) {
@@ -148,5 +152,8 @@ public class RequestFrame extends BaseFrame {
 	public int getSelectedIndex() {
 		return requestNameList.getSelectedIndex();
 	}
-
+	public JScrollPane getDescScrollPane() {
+		return descScrollPane;
+	}
+	
 }
