@@ -215,13 +215,14 @@ public class Controller implements ActionListener, ListSelectionListener {
 
 				int confirmed = JOptionPane.showConfirmDialog(view.getRF(), "Are you sure you want to delete this request?", "Delete Request Options", JOptionPane.YES_NO_CANCEL_OPTION);
 				if(confirmed == 0) {
-					((ClassDirector) model.getCurrentUser()).deleteRequest(currReqIndex);;
+					((ClassDirector) model.getCurrentUser()).deleteRequest(currReqIndex);
 					view.getRF().getRequestList().remove(currReqIndex);
 					
 					view.getRF().setClassID("");
 					view.getRF().setTeacherName("");
 					view.getRF().setDescription("");
 				}
+				
 			}
 			
 		} else if(view.getRF().getButtonPanel() instanceof PTTDirectorButtonPanel) {

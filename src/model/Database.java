@@ -133,6 +133,14 @@ public class Database {
 		return approvedList;
 	}
 	
+	public ArrayList<Request> getNotApprovedList() {
+		ArrayList<Request> notApprovedList = new ArrayList<Request>();
+		requestList.forEach(request -> {
+			if(!request.getApproved()) notApprovedList.add(request);
+		});
+		return notApprovedList;
+	}
+	
 	public Request getRequest(int index) {
 		return requestList.get(index);
 	}

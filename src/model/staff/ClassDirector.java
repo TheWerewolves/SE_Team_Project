@@ -1,7 +1,10 @@
 package model.staff;
 
 
+import java.util.ArrayList;
+
 import model.Database;
+import model.Request;
 
 
 public class ClassDirector extends Staff {
@@ -17,11 +20,14 @@ public class ClassDirector extends Staff {
 		database.addRequest(name, description);
 	}
 	
-	public void deleteRequest(int... requestIndex) {
+	public void deleteRequest(int requestIndex) {
 		Database database = Database.getInstance();
-		for(int i = 0; i < requestIndex.length; i++) {
-			database.deleteRequest(i);
-		}
+		database.deleteRequest(requestIndex);
 	}
 
+	@Override
+	public ArrayList<Request> getRequest() {
+		Database db = Database.getInstance();
+		return db.getNotApprovedList();
+	}
 }
