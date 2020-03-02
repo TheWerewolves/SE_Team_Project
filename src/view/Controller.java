@@ -196,14 +196,16 @@ public class Controller implements ActionListener, ListSelectionListener {
 				}
 				
 			} else if(e.getSource() == bp.getDeleteReqButton()) {
-				
-				((ClassDirector) model.getCurrentUser()).deleteRequest(currReqIndex);;
-				view.getRF().getRequestList().remove(currReqIndex);
-				
-				view.getRF().setClassID("");
-				view.getRF().setTeacherName("");
-				view.getRF().setDescription("");
-				
+
+				int confirmed = JOptionPane.showConfirmDialog(view.getMF(), "Are you sure you want to delete this request?", "Delete Request Options", JOptionPane.YES_NO_CANCEL_OPTION);
+				if(confirmed == 0) {
+					((ClassDirector) model.getCurrentUser()).deleteRequest(currReqIndex);;
+					view.getRF().getRequestList().remove(currReqIndex);
+					
+					view.getRF().setClassID("");
+					view.getRF().setTeacherName("");
+					view.getRF().setDescription("");
+				}
 			}
 			
 		} else if(view.getRF().getButtonPanel() instanceof PTTDirectorButtonPanel) {
@@ -223,20 +225,28 @@ public class Controller implements ActionListener, ListSelectionListener {
 	public void valueChanged(ListSelectionEvent e) {
 		
 		if(!e.getValueIsAdjusting()) return;
-		
+
 		view.getRF().getButtonPanel().setButtonsEnabled(true);
 		
 		currReqIndex = view.getRF().getSelectedIndex();
 		Request activeRequest = model.getRequest(currReqIndex);
 		
-		if(activeRequest.getPTTClass() != null) 
+		if(activeRequest.getPTTClass() != null) {
 			view.getRF().setClassID("" + activeRequest.getPTTClass().getID());
-		else
+			view.getRF().getClassDetailButton().setEnabled(true);
+		} else {
 			view.getRF().setClassID("unorganized");
-		if(activeRequest.getTeacherID() != -1) 
+			view.getRF().getClassDetailButton().setEnabled(false);
+		}
+		
+		if(activeRequest.getTeacherID() != -1) {
 			view.getRF().setTeacherName(model.getName(activeRequest.getTeacherID()));
-		else
+			view.getRF().getTeacherDetailButton().setEnabled(true);
+		} else {
 			view.getRF().setTeacherName("unorganized");
+			view.getRF().getTeacherDetailButton().setEnabled(false);
+		}
+
 		view.getRF().setDescription(activeRequest.getDescription());
 		
 		if(view.getRF().getButtonPanel() instanceof PTTDirectorButtonPanel) {

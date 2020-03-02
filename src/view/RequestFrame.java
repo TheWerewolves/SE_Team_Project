@@ -52,10 +52,10 @@ public class RequestFrame extends BaseFrame {
 		requestListLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		requestListLabel.setBounds(15, 15, 198, 21);
 		contentPane.add(requestListLabel);
-		classIdLabel = new JLabel("Class ID:");
+		classIdLabel = new JLabel("Class ID:                    ");
 		classIdLabel.setBounds(228, 29, 81, 21);
 		contentPane.add(classIdLabel);
-		teacherNameLabel = new JLabel("Teacher:");
+		teacherNameLabel = new JLabel("Teacher:                 ");
 		teacherNameLabel.setBounds(228, 58, 123, 21);
 		contentPane.add(teacherNameLabel);
 		JLabel descripLabel = new JLabel("Request Description:");
@@ -66,10 +66,13 @@ public class RequestFrame extends BaseFrame {
 		classDetailButton = new JButton("Detail");
 		classDetailButton.setBounds(458, 25, 80, 24);
 		classDetailButton.addActionListener(c);
+		classDetailButton.setEnabled(false);
 		contentPane.add(classDetailButton);
+		
 		teacherDetailButton = new JButton("Detail");
 		teacherDetailButton.setBounds(458, 55, 80, 24);
 		teacherDetailButton.addActionListener(c);
+		teacherDetailButton.setEnabled(false);
 		contentPane.add(teacherDetailButton);
 		
 		JScrollPane descScrollPane = new JScrollPane();
