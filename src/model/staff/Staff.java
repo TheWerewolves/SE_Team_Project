@@ -28,17 +28,22 @@ public class Staff {
 	}
 	
 	
+	//get the staff's permission level
 	@JsonIgnore
 	public String getPermLvl() {
 		return this.getClass().getSimpleName();
 	}
 	
+	//different staff have different requirement to get the requestList
+	// for example. teacher and admin only can see the approved request
+	// class director can only see the not approved request.
 	@JsonIgnore
 	public ArrayList<Request> getRequest() {
 		Database db = Database.getInstance();
 		return db.getRequestList();
 	}
 	
+	//get a specific request from its ID
 	@JsonIgnore
 	public Request getRequest(int id) {
 		Database db = Database.getInstance();

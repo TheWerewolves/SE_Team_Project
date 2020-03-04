@@ -1,7 +1,6 @@
 package model;
 
 
-@SuppressWarnings("unused")
 public class Request {
 	
 	private static int numRequests = 0;

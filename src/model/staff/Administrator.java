@@ -15,10 +15,12 @@ public class Administrator extends Staff {
 		super(id, name, password);
 	}
 	
+	//orginize teacher
 	public void organize(Request request, int teacherID) {
 		request.setTeacherID(teacherID);
 	}
 	
+	//orgnize class
 	public void organize(Request request, PTTClass pttClass) {
 		request.setPTTClass(pttClass);
 	}
