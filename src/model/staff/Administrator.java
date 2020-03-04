@@ -15,14 +15,12 @@ public class Administrator extends Staff {
 		super(id, name, password);
 	}
 	
-	public void organize(int requestIndex, int teacherID) {
-		Database database = Database.getInstance();
-		database.getRequestList().get(requestIndex).setTeacherID(teacherID);
+	public void organize(Request request, int teacherID) {
+		request.setTeacherID(teacherID);
 	}
 	
-	public void organize(int requestIndex, PTTClass pttClass) {
-		Database database = Database.getInstance();
-		database.getRequest(requestIndex).setPTTClass(pttClass);
+	public void organize(Request request, PTTClass pttClass) {
+		request.setPTTClass(pttClass);
 	}
 	
 	@Override

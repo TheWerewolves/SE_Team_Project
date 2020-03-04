@@ -25,8 +25,8 @@ public class Controller implements ActionListener, ListSelectionListener {
 
 	private Model model;
 	private View view;
-	
-	private int currReqIndex = -1;
+
+	private Request activeRequest;
 	
 	
 	public Controller(Model model) {
@@ -90,8 +90,8 @@ public class Controller implements ActionListener, ListSelectionListener {
 			
 		} else if(e.getSource() == view.getRF().getClassDetailButton()) {
 			
-			if(currReqIndex == -1) return;
-			Request activeRequest = model.getRequest(currReqIndex);
+			if(activeRequest == null) return;
+
 			String detail = "Class Size: " + activeRequest.getPTTClass().getSize() + "\n" +
 							"Class Date: " + activeRequest.getPTTClass().getTime() + "\n" +
 							"Location:     " +   activeRequest.getPTTClass().getLocation() + "\n" +
@@ -101,8 +101,8 @@ public class Controller implements ActionListener, ListSelectionListener {
 			
 		} else if(e.getSource() == view.getRF().getTeacherDetailButton()) {
 			
-			if(currReqIndex == -1) return;
-			Request activeRequest = model.getRequest(currReqIndex);
+			if(activeRequest == null) return;
+
 			String detail = "Teacher ID:   " +   activeRequest.getTeacherID() + "\n" +
 							"Teacher Name: " + model.getName(activeRequest.getTeacherID());
 			
@@ -125,8 +125,9 @@ public class Controller implements ActionListener, ListSelectionListener {
 						"Please selete a teacher's ID: ", "Orgnize Teacher", JOptionPane.PLAIN_MESSAGE, null, idList, null);
 				if(choice != null) {
 					int choiceID = (int) choice;
-					((Administrator) model.getCurrentUser()).organize(currReqIndex, choiceID);
+					((Administrator) model.getCurrentUser()).organize(activeRequest, choiceID);
 					view.getRF().setTeacherName(model.getName(choiceID));
+					view.getRF().getTeacherDetailButton().setEnabled(true);
 				}
 				
 			} else if(e.getSource() == bp.getOrgClassButton()) {
@@ -136,7 +137,7 @@ public class Controller implements ActionListener, ListSelectionListener {
 				JTextField locationField = new JTextField();
 				JTextField semesterField = new JTextField();
 				
-				PTTClass currClass = model.getRequest(currReqIndex).getPTTClass();
+				PTTClass currClass = activeRequest.getPTTClass();
 				if(currClass != null) {
 					classSizeField.setText("" + currClass.getSize());
 					classDateField.setText("" + currClass.getTime());
@@ -164,8 +165,9 @@ public class Controller implements ActionListener, ListSelectionListener {
 						classDate = Date.parseDate(classDateField.getText());
 						
 						PTTClass pttClass = new PTTClass(classSize, classDate, location, semester);
-						((Administrator) model.getCurrentUser()).organize(currReqIndex, pttClass);
+						((Administrator) model.getCurrentUser()).organize(activeRequest, pttClass);
 						view.getRF().setClassID("" + pttClass.getID());
+						view.getRF().getClassDetailButton().setEnabled(true);
 
 					} catch (Exception exception) {
 						exception.printStackTrace();
@@ -186,6 +188,7 @@ public class Controller implements ActionListener, ListSelectionListener {
 				JTextField nameField = new JTextField();
 				JTextArea descriptionArea = new JTextArea(4, 10);
 				descriptionArea.setLineWrap(true);
+				descriptionArea.setWrapStyleWord(true);
 				JScrollPane descScrollPane = new JScrollPane();
 				descScrollPane.setViewportView(descriptionArea);
 				
@@ -215,8 +218,8 @@ public class Controller implements ActionListener, ListSelectionListener {
 
 				int confirmed = JOptionPane.showConfirmDialog(view.getRF(), "Are you sure you want to delete this request?", "Delete Request Options", JOptionPane.YES_NO_CANCEL_OPTION);
 				if(confirmed == 0) {
-					((ClassDirector) model.getCurrentUser()).deleteRequest(currReqIndex);
-					view.getRF().getRequestList().remove(currReqIndex);
+					((ClassDirector) model.getCurrentUser()).deleteRequest(activeRequest.getID());
+					view.getRF().getRequestList().remove(activeRequest.getID());
 					
 					view.getRF().setClassID("");
 					view.getRF().setTeacherName("");
@@ -233,7 +236,7 @@ public class Controller implements ActionListener, ListSelectionListener {
 				
 				boolean approved = false;
 				if(bp.getApproveRadio().isSelected()) approved = true;
-				((PTTDirector) model.getCurrentUser()).approved(currReqIndex, approved);
+				((PTTDirector) model.getCurrentUser()).approved(activeRequest.getID(), approved);
 				
 			}
 		}
@@ -246,8 +249,7 @@ public class Controller implements ActionListener, ListSelectionListener {
 
 		view.getRF().getButtonPanel().setButtonsEnabled(true);
 		
-		currReqIndex = view.getRF().getSelectedIndex();
-		Request activeRequest = model.getRequest(currReqIndex);
+		activeRequest = model.getCurrentUser().getRequest().get(view.getRF().getSelectedIndex());
 		
 		if(activeRequest.getPTTClass() != null) {
 			view.getRF().setClassID("" + activeRequest.getPTTClass().getID());

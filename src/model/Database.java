@@ -141,8 +141,13 @@ public class Database {
 		return notApprovedList;
 	}
 	
-	public Request getRequest(int index) {
-		return requestList.get(index);
+	public Request getRequest(int id) {
+		for(Request r : requestList) {
+			if(r.getID() == id) {
+				return r;
+			}
+		}
+		return null;
 	}
 	public ArrayList<Request> getRequestList() {
 		return requestList;

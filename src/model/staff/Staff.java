@@ -39,6 +39,12 @@ public class Staff {
 		return db.getRequestList();
 	}
 	
+	@JsonIgnore
+	public Request getRequest(int id) {
+		Database db = Database.getInstance();
+		return db.getRequest(id);
+	}
+	
 	// Getters
 	public int getID() {
 		return id;

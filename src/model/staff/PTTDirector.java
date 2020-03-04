@@ -1,9 +1,6 @@
 package model.staff;
 
 
-import model.Database;
-
-
 public class PTTDirector extends Staff {
 	
 	public PTTDirector() { super(); }
@@ -11,9 +8,8 @@ public class PTTDirector extends Staff {
 		super(id, name, password);
 	}
 	
-	public void approved(int requestIndex, boolean approved) {
-		Database database = Database.getInstance();
-		database.getRequest(requestIndex).setApproved(approved);
+	public void approved(int requestID, boolean approved) {
+		getRequest(requestID).setApproved(approved);
 	}
 
 }

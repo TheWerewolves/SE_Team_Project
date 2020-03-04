@@ -35,6 +35,9 @@ public class Request {
 	
 
 	// Getters and Setters
+	public int getID() {
+		return id;
+	}
 	public String getName() {
 		return name;
 	}
