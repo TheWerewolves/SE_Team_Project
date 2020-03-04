@@ -7,6 +7,8 @@ import java.awt.GridLayout;
 import javax.swing.SwingConstants;
 import javax.swing.border.MatteBorder;
 
+import Controller.Controller;
+
 import java.awt.Color;
 import javax.swing.JButton;
 

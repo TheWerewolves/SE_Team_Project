@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 
 import model.Database;
 
-
+//This is a baseFrame for 3 different Frames.
 @SuppressWarnings("serial")
 public class BaseFrame extends JFrame {
 
@@ -27,6 +27,7 @@ public class BaseFrame extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		//add a common method for all Frames
 		addWindowListener(new WindowAdapter() {
 	        @Override
 	        public void windowClosing(WindowEvent e)

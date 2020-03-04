@@ -8,6 +8,9 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
+
+import Controller.Controller;
+
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
@@ -16,7 +19,7 @@ import javax.swing.ListSelectionModel;
 
 import java.awt.SystemColor;
 
-
+// This is the request Frame where user can check, and do operation to the requests.
 @SuppressWarnings({"serial", "unused"})
 public class RequestFrame extends BaseFrame {
 	
@@ -78,6 +81,7 @@ public class RequestFrame extends BaseFrame {
 		teacherDetailButton.setEnabled(false);
 		contentPane.add(teacherDetailButton);
 		
+		//The testArea which contain description of request which have a scroll bar.
 		descScrollPane = new JScrollPane();
 		descScrollPane.setBounds(228, 110, 335, 80);
 		contentPane.add(descScrollPane);
@@ -88,6 +92,7 @@ public class RequestFrame extends BaseFrame {
 		descripTextArea.setWrapStyleWord(true);
 		descScrollPane.setViewportView(descripTextArea);
 		
+		//there is a button which can return to the menu
 		menuButton = new JButton("Return to Menu");
 		menuButton.setBounds(300, 286, 186, 29);
 		menuButton.addActionListener(c);

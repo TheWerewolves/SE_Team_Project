@@ -1,9 +1,10 @@
 package view;
 
 
+import Controller.Controller;
 import model.Model;
 
-
+// This is view, which initialize the GUI, and can return different frames.
 public class View{
 	
 	private LoginFrame lf;

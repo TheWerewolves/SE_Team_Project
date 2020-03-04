@@ -1,4 +1,4 @@
-package view;
+package Controller;
 
 
 import java.awt.event.ActionEvent;
@@ -19,13 +19,19 @@ import model.Request;
 import model.staff.Administrator;
 import model.staff.ClassDirector;
 import model.staff.PTTDirector;
+import view.AdminButtonPanel;
+import view.ClassDirectorButtonPanel;
+import view.PTTDirectorButtonPanel;
+import view.View;
 
-
+/**
+ * The Interaction between Client, Model and View
+ */
 public class Controller implements ActionListener, ListSelectionListener {
 
 	private Model model;
 	private View view;
-
+	
 	private Request activeRequest;
 	
 	
@@ -41,15 +47,19 @@ public class Controller implements ActionListener, ListSelectionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
+		//press Exit Button at login Frame
 		if(e.getSource() == view.getLF().getExitButton()) {
 			
 			Database.getInstance().save();
 			System.exit(0);
 			
+		//press Login Button at login Frame
 		} else if(e.getSource() == view.getLF().getLoginButton()) {
 			
 			int id = view.getLF().getID();
 			String password = view.getLF().getPassWord();
+			
+			//log in succeed
 			if(model.Login(id, password)) {
 				
 				view.getMF().setUserName(model.getCurrentUser().getName());
@@ -59,11 +69,14 @@ public class Controller implements ActionListener, ListSelectionListener {
 				view.getMF().setLocationRelativeTo(view.getLF());
 				view.getLF().setVisible(false);
 				view.getMF().setVisible(true);
+				
+			//log in fail
 			} else {
 				JOptionPane.showMessageDialog(view.getLF(), 
 						"Wrong ID or password, Login failed.", "Login Failed", JOptionPane.ERROR_MESSAGE);
 			}
 			
+		//press logout button at Menu Frame
 		} else if(e.getSource() == view.getMF().getLogoutButton()) {
 
 			int confirmed = JOptionPane.showConfirmDialog(view.getMF(), "Are you sure you want to logout?", "Logout Options", JOptionPane.YES_NO_CANCEL_OPTION);
@@ -74,7 +87,8 @@ public class Controller implements ActionListener, ListSelectionListener {
 				view.getMF().setVisible(false);
 				view.getLF().setVisible(true);
 			}
-			
+		
+		//press request button at Menu Frame
 		} else if(e.getSource() == view.getMF().getRequestButton()) {
 
 			view.getRF().getRequestList().removeAllElements();
@@ -88,6 +102,7 @@ public class Controller implements ActionListener, ListSelectionListener {
 			view.getMF().setVisible(false);
 			view.getRF().setVisible(true);
 			
+		//press class detail button at Request Frame
 		} else if(e.getSource() == view.getRF().getClassDetailButton()) {
 			
 			if(activeRequest == null) return;
@@ -99,6 +114,7 @@ public class Controller implements ActionListener, ListSelectionListener {
 			
 			JOptionPane.showMessageDialog(view.getLF(), detail, "Class Information", JOptionPane.INFORMATION_MESSAGE);
 			
+		//press Teacher detail button at Request Frame
 		} else if(e.getSource() == view.getRF().getTeacherDetailButton()) {
 			
 			if(activeRequest == null) return;
@@ -108,16 +124,19 @@ public class Controller implements ActionListener, ListSelectionListener {
 			
 			JOptionPane.showMessageDialog(view.getLF(), detail, "Teacher Information", JOptionPane.INFORMATION_MESSAGE);
 			
+		//press Menu Button at Request Frame
 		} else if(e.getSource() == view.getRF().getMenuButton()) {
 			
 			view.getMF().setLocationRelativeTo(view.getRF());
 			view.getRF().setVisible(false);
 			view.getMF().setVisible(true);
 			
+		//If user is Admin
 		} else if(view.getRF().getButtonPanel() instanceof AdminButtonPanel) {
 
 			AdminButtonPanel bp = (AdminButtonPanel) view.getRF().getButtonPanel();
 			
+			//Admin press the orgnize teacher button
 			if(e.getSource() == bp.getOrgTeacherButton()) {
 				
 				Object[] idList = model.getTeacherIDList().toArray();
@@ -129,7 +148,8 @@ public class Controller implements ActionListener, ListSelectionListener {
 					view.getRF().setTeacherName(model.getName(choiceID));
 					view.getRF().getTeacherDetailButton().setEnabled(true);
 				}
-				
+			
+			//Admin press the orgnize class button
 			} else if(e.getSource() == bp.getOrgClassButton()) {
 				
 				JTextField classSizeField = new JTextField();
@@ -178,17 +198,18 @@ public class Controller implements ActionListener, ListSelectionListener {
 				}
 				
 			}
-			
+		
+		// If user is Class Director
 		} else if(view.getRF().getButtonPanel() instanceof ClassDirectorButtonPanel) {
 
 			ClassDirectorButtonPanel bp = (ClassDirectorButtonPanel) view.getRF().getButtonPanel();
 			
+			//Class Director press add button
 			if(e.getSource() == bp.getAddReqButton()) {
 				
 				JTextField nameField = new JTextField();
 				JTextArea descriptionArea = new JTextArea(4, 10);
 				descriptionArea.setLineWrap(true);
-				descriptionArea.setWrapStyleWord(true);
 				JScrollPane descScrollPane = new JScrollPane();
 				descScrollPane.setViewportView(descriptionArea);
 				
@@ -214,6 +235,7 @@ public class Controller implements ActionListener, ListSelectionListener {
 					
 				}
 				
+			//Class Director press delete request button
 			} else if(e.getSource() == bp.getDeleteReqButton()) {
 
 				int confirmed = JOptionPane.showConfirmDialog(view.getRF(), "Are you sure you want to delete this request?", "Delete Request Options", JOptionPane.YES_NO_CANCEL_OPTION);
@@ -227,11 +249,13 @@ public class Controller implements ActionListener, ListSelectionListener {
 				}
 				
 			}
-			
+		
+		//If user is PTT Director
 		} else if(view.getRF().getButtonPanel() instanceof PTTDirectorButtonPanel) {
-
+			
 			PTTDirectorButtonPanel bp = (PTTDirectorButtonPanel) view.getRF().getButtonPanel();
 			
+			//if PTT Director press save button
 			if(e.getSource() == bp.getSaveButton()) {
 				
 				boolean approved = false;

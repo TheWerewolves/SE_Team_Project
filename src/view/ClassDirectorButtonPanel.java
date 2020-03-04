@@ -3,7 +3,9 @@ package view;
 
 import javax.swing.JButton;
 
+import Controller.Controller;
 
+//This is the buttonPanel that class director see in the Request Frame
 @SuppressWarnings("serial")
 public class ClassDirectorButtonPanel extends BaseButtonPanel {
 

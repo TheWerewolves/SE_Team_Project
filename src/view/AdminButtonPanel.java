@@ -3,7 +3,9 @@ package view;
 
 import javax.swing.JButton;
 
+import Controller.Controller;
 
+// This is the buttonPanel that admin see in the Request Frame
 @SuppressWarnings("serial")
 public class AdminButtonPanel extends BaseButtonPanel {
 
@@ -33,7 +35,9 @@ public class AdminButtonPanel extends BaseButtonPanel {
 	public JButton getOrgClassButton() {
 		return orgClassButton;
 	}
-
+	
+	//the Teacher button and class button is initially disabled
+	//they will be enabled if user select a request in the JList.
 	@Override
 	public void setButtonsEnabled(boolean enabled) {
 		orgTeacherButton.setEnabled(enabled);

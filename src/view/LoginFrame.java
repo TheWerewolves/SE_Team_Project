@@ -5,6 +5,9 @@ import javax.swing.JPasswordField;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
+
+import Controller.Controller;
+
 import javax.swing.JButton;
 
 
